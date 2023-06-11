@@ -1,0 +1,68 @@
+---
+
+safari_show_full_url_in_address_bar: false
+safari_open_safe_files_automatically: true
+safari_show_status_bar: true
+safari_show_developer_menu: true
+
+system_save_application_state_on_quit: no
+system_show_file_extensions_warning: no
+system_warn_before_emptying_the_trash: yes
+trackpad_tap_to_click: yes
+
+# If using zsh
+shell_path: /usr/local/bin/zsh
+# If using bash
+#shell_path: /usr/local/bin/bash
+
+homebrew_taps:
+  - homebrew/cask
+  - homebrew/cask-fonts
+  - homebrew/cask-versions
+
+homebrew_apps:
+  - discord # Voice and text chat software
+  - docker # CLI for Docker Containers
+  - font-fira-code-nerd-font # Developer targeted fonts with a high number of glyphs
+  - font-noto-nerd-font # Developer targeted fonts with a high number of glyphs
+  - iterm2 # Terminal emulator as alternative to Apple's Terminal app
+  - slack # Team communication and collaboration software
+  - spotify # Music streaming service
+  - visual-studio-code # VSCode
+  - zoom # Video communication and virtual meeting platform
+
+homebrew_packages:
+  - ansible
+  - bash
+  - bat # Prints the syntax-highlighted content of a collection of files to the terminal
+  - curl
+  - git # Distributed revision control system
+  - glow # Render markdown on the CLI
+  - go
+  - grep # GNU grep, egrep and fgrep
+  - helm
+  - httpie # User-friendly cURL replacement (command-line HTTP client)
+  - just
+  - jq # Lightweight and flexible command-line JSON processor
+  - kubernetes-cli
+  - lua
+  - make
+  - mas # Mac App Store command-line interface
+  - neovim
+  - openssh # OpenBSD freely-licensed SSH connectivity tools
+  - sshuttle
+  - starship
+  - terraform # Tool to build, change, and version infrastructure
+  - terragrunt # Thin wrapper for Terraform e.g. for locking state
+  - tmux
+  - tree # Display directories as trees (with optional color/HTML output)
+  - vim # Vi 'workalike' with many additional features
+  - wget # Internet file retriever
+  - watch # Executes a program periodically, showing output fullscreen
+  - yq
+  - zsh
+
+mas_apps:
+  - { name: 1Blocker, id: 1107421413 }
+  - { name: JSONPeep, id: 1458969831 }
+  - { name: Bitwarden, id: 1352778147 }

@@ -1,0 +1,55 @@
+---
+
+- name: Get Current User
+  command: echo $USER
+  register: current_user
+  changed_when: false
+
+- name: Print Ansible variables
+  vars:
+    msg: |
+      ansible_python_interpreter: {{ ansible_python_interpreter|default('') }}
+      ansible_user: {{ ansible_user|default(current_user.stdout_lines[0]) }}
+  debug:
+    msg: "{{ msg.split('\n') }}"
+  tags: debug_info
+
+- name: Ensure ~/.gitconfig copied from master.gitconfig
+  copy:
+    src: "../configs/master.gitconfig"
+    dest: "{{ ansible_env.HOME|default('~') }}/gitconfig"
+  tags: gitconfig
+
+- name: Clone my nvim config from github repo
+  git:
+    repo: git@github.com:rxmxn/nvim-configs.git
+    dest: "{{ ansible_env.HOME|default('~') }}/.nvim-configs/test"
+    version: master
+  tags: clonenvimconfig
+
+- name: Create src directory if it doesn't exist
+  become: yes
+  file:
+    path: "{{ ansible_env.HOME|default('~') }}/src"
+    state: directory
+    mode: '0755'
+    owner: "{{ ansible_user|default(current_user.stdout_lines[0])}}"
+  tags: createsrc
+
+- name: Create Go workspace directories
+  become: yes
+  file:
+    path: "{{ ansible_env.HOME|default('~') }}/src/go/{{ item }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ ansible_user|default(current_user.stdout_lines[0]) }}"
+  with_items:
+    - bin
+    - pkg
+    - src
+
+- name: Ensure ~/.zshrc has all my configurations
+  copy:
+    src: "../configs/rc"
+    dest: "{{ ansible_env.HOME|default('~') }}/.zshrc"
+  tags: zshrc

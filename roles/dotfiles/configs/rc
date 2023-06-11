@@ -1,0 +1,89 @@
+# starting starship terminal
+eval "$(starship init zsh)"
+
+tmux
+
+export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:$HOME/src/bash"
+
+# Key bindings, up/down arrow searches through history
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+bind '"\eOA": history-search-backward'
+bind '"\eOA": history-search-forward'
+
+# Don't duplicate lines or lines starting with a space in the history
+HISTCONTROL=ignoreboth
+
+# vim
+alias vim=nvim
+alias nvimdefault="ln -snf ~/.nvim-configs/default ~/.config/nvim"
+
+# python
+alias python=python3
+alias pip=pip3
+alias venv="python -m venv venv"
+alias activate=". venv/bin/activate"
+alias install="pip install --editable ."
+
+# docker
+alias clean-docker-images="docker images | grep none | awk '{ print $3; }' | xargs docker rmi --force"
+
+# find a file by name
+alias mdf='mdfind "kMDItemDisplayName == $@"'
+
+# Go
+export GOPATH=$HOME/src/go
+export PATH="$PATH:$GOPATH/bin"
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
+# k8s
+export KUBECONFIG=$HOME/.kube/config
+alias k=kubectl
+alias kg='kubectl get $1'
+alias kt=kubetail
+alias kssh='kubectl exec -it $1 sh'
+
+alias kenv=k_env $1
+function k_env {
+    if [ -z "$1" ]; then
+        kubectl config get-contexts
+    else
+        kubectl config use-context "$1"
+    fi
+}
+
+# useful pacotilla
+alias externalip="curl ipecho.net/plain ; echo"
+alias genpassword='openssl rand -base64 32'
+alias please='sudo !!'
+alias vpn="kill -9 $(ps ax | grep Global | grep -v 'grep' | awk '{print $1}')"
+
+# pacotilla
+alias grayscale='osascript ~/src/tools/toggle-grayscale.scpt'
+alias meet="open -a 'Google Chrome'"
+alias weather='curl https://wttr.in/tampa-fl'
+alias shrug='echo "¯\_(ツ)_/¯" | pbcopy'
+alias starwars='nc towel.blinkenlights.nl 23'
+
+# moving around
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+# ansible
+eval $(register-python-argcomplete ansible)
+eval $(register-python-argcomplete ansible-config)
+eval $(register-python-argcomplete ansible-console)
+eval $(register-python-argcomplete ansible-doc)
+eval $(register-python-argcomplete ansible-galaxy)
+eval $(register-python-argcomplete ansible-inventory)
+eval $(register-python-argcomplete ansible-playbook)
+eval $(register-python-argcomplete ansible-pull)
+eval $(register-python-argcomplete ansible-vault)
+
+# tar
+# compress, eg. tarc backup.tar.gz /home/user/project
+alias tarc='tar -cvzf $1'
+# extract, eg. tare backup.tar.gz
+alias tare='tar -xvzf $1'
